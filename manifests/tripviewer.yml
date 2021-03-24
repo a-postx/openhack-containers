@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripviewer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tripviewer
+  template:
+    metadata:
+      labels:
+        app: tripviewer
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: tripviewer
+        image: registryxgu1560.azurecr.io/hacker3/tripviewer:1.0
+        env:
+        - name: USERPROFILE_API_ENDPOINT
+          value: "http://userprofile"
+        - name: TRIPS_API_ENDPOINT
+          value: "http://trips"
+        ports:
+        - containerPort: 80
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripviewer
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: tripviewer
