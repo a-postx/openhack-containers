@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-java
+  template:
+    metadata:
+      labels:
+        app: user-java
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: user-java
+        image: registryxgu1560.azurecr.io/hacker4/user-java:1.0
+        env:
+        - name: SQL_PASSWORD
+          value: "aD2dk3Uw3"
+        - name: SQL_SERVER
+          value: "sqlserverxgu1560.database.windows.net"
+        - name: SQL_DBNAME
+          value: "mydrivingDB"
+        - name: SQL_USER
+          value: "sqladminxGu1560"
+        ports:
+        - containerPort: 80
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-java
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: user-java
