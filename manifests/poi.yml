@@ -19,7 +19,10 @@ spec:
         image: registryxgu1560.azurecr.io/hacker3/poi:1.0
         env:
         - name: SQL_PASSWORD
-          value: "aD2dk3Uw3"
+          valueFrom:
+            secretKeyRef:
+              name: sqlpassword
+              key: SQL_PASSWORD
         - name: SQL_SERVER
           value: "sqlserverxgu1560.database.windows.net"
         - name: SQL_DBNAME

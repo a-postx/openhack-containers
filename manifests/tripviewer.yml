@@ -33,5 +33,6 @@ metadata:
 spec:
   ports:
   - port: 80
+  type: LoadBalancer
   selector:
     app: tripviewer
