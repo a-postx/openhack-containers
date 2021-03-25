@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: userprofile
+  namespace: apidev
 spec:
   replicas: 1
   selector:
@@ -19,9 +20,10 @@ spec:
         image: registryxgu1560.azurecr.io/hacker3/userprofile:1.0
         env:
         - name: SQL_PASSWORD
-          value: "aD2dk3Uw3"
-        - name: SQL_SERVER
-          value: "sqlserverxgu1560.database.windows.net"
+          valueFrom:
+            secretKeyRef:
+              name: sqlpassword
+              key: SQL_PASSWORD
         - name: SQL_DBNAME
           value: "mydrivingDB"
         - name: SQL_USER
