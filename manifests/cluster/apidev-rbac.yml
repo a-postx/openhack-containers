@@ -1,0 +1,47 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: apidev-read-access
+  namespace: apidev
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["get", "watch", "list"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: webdevelopers-apidev-read-access
+  namespace: apidev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: apidev-read-access
+subjects:
+- kind: Group
+  namespace: apidev
+  name: bad81872-eda4-42d2-b5d7-f64f7e41389f
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: apidev-full-access
+  namespace: apidev
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: apidevelopers-apidev-full-access
+  namespace: apidev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: apidev-full-access
+subjects:
+- kind: Group
+  namespace: apidev
+  name: 3d0775a3-fccc-4e6e-90b1-dda4b33b1422
