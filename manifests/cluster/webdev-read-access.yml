@@ -6,7 +6,11 @@ metadata:
 rules:
 - apiGroups: ["", "extensions", "apps"]
   resources: ["*"]
+<<<<<<< HEAD
   verbs: ["get", "list", "watch"]
+=======
+  verbs: ["get", "watch", "list"]
+>>>>>>> 523e02c44cbdfb34e5fb1bd4d5d3d2cdeb7cbaa2
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
