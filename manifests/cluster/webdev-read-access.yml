@@ -6,11 +6,7 @@ metadata:
 rules:
 - apiGroups: ["", "extensions", "apps"]
   resources: ["*"]
-<<<<<<< HEAD
-  verbs: ["get", "list", "watch"]
-=======
   verbs: ["get", "watch", "list"]
->>>>>>> 523e02c44cbdfb34e5fb1bd4d5d3d2cdeb7cbaa2
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -25,3 +21,27 @@ subjects:
 - kind: Group
   namespace: webdev
   name: 3d0775a3-fccc-4e6e-90b1-dda4b33b1422
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: webdev-full-access
+  namespace: webdev
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: webdevelopers-webdev-full-access
+  namespace: webdev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: webdev-full-access
+subjects:
+- kind: Group
+  namespace: webdev
+  name: bad81872-eda4-42d2-b5d7-f64f7e41389f
